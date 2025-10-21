@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Game Predictor - Deposit</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .loading-screen {
+      font-family: monospace;
+      background: #000;
+      color: #00ff88;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+      z-index: 50;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+    .hidden-screen {
+      display: none;
+    }
+    .progress-container {
+      background: #222;
+      border-radius: 8px;
+      width: 300px;
+      height: 25px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      background: linear-gradient(90deg, #00ff88, #00aaff);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+  <div id="loading" class="loading-screen">
+    <p>Loading... Please wait while we set up your experience.</p>
+  </div>
+
+  <div id="mainContent" class="hidden-screen">
+    <section class="min-h-screen flex flex-col items-center justify-center px-4 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold mb-6">Earn Real Money with AI Predictions</h2>
+      <p class="max-w-xl mb-8 text-gray-300">Thousands of Sri Lankans use our AI to win in games like Aviator, Mines, and Penalty. 98% signal accuracy, real-time predictions, and fast withdrawals.</p>
+
+      <input id="userId" type="text" maxlength="10" inputmode="numeric" pattern="\d*" placeholder="Enter your 1xBet Account ID" class="bg-gray-700 text-white p-3 rounded-md mb-4" />
+      <button id="connectButton" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-xl text-lg transition">Connect Account</button>
+
+      <!-- Прогресс -->
+      <div id="progressSection" class="hidden mt-8 text-center">
+        <p class="text-green-400 font-bold">Analyzing account...</p>
+        <div class="progress-container mx-auto">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p id="progressText" class="mt-2 text-green-300">0%</p>
+
+        <div id="errorBox" class="hidden bg-red-600 mt-4 p-4 rounded-lg max-w-sm mx-auto">
+          <h2 class="text-lg font-bold">❌ Error: Deposit Required</h2>
+          <p class="text-sm mt-1">Analysis stopped at <span class="font-bold">98%</span>. Your account balance is too low.  
+          Please deposit <span class="font-bold">500 LKR</span> to continue.</p>
+          <a href="https://reffpa.com/L?tag=d_4856593m_97c__[]general[]_d173602_l228485_adaptive_banner&site=4856593&ad=97&r=registration"
+             target="_blank"
+             class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg transition mt-3">
+             Deposit Now
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Показывает главный контент после короткой загрузки
+    setTimeout(() => {
+      document.getElementById("loading").classList.add("hidden-screen");
+      document.getElementById("mainContent").classList.remove("hidden-screen");
+    }, 2000);
+
+    // Обработка кнопки Connect
+    document.getElementById("connectButton").addEventListener("click", () => {
+      const userId = document.getElementById("userId").value;
+      if (!userId) return;
+
+      const progressSection = document.getElementById("progressSection");
+      const progressBar = document.getElementById("progressBar");
+      const progressText = document.getElementById("progressText");
+      const errorBox = document.getElementById("errorBox");
+
+      errorBox.classList.add("hidden");
+      progressSection.classList.remove("hidden");
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 4;
+        if (progress >= 98) {
+          progress = 98;
+          clearInterval(interval);
+          progressBar.style.width = progress + "%";
+          progressText.textContent = Math.floor(progress) + "%";
+          setTimeout(() => {
+            errorBox.classList.remove("hidden");
+          }, 1000);
+          return;
+        }
+        progressBar.style.width = progress + "%";
+        progressText.textContent = Math.floor(progress) + "%";
+      }, 300);
+    });
+  </script>
+</body>
+</html>
